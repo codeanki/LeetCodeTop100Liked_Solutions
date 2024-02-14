@@ -1,0 +1,23 @@
+public class Solution {
+    public ListNode detectCycle(ListNode head) {
+        ListNode slowPointer = head,fastPointer = head;
+        boolean hasLoop = false;
+        while(fastPointer != null && fastPointer.next != null){
+            slowPointer = slowPointer.next;
+            fastPointer = fastPointer.next.next;
+            if(slowPointer == fastPointer){
+                hasLoop = true;
+                break;
+            }
+        }
+        if(!hasLoop){
+            return null;
+        }
+        slowPointer = head;
+        while(slowPointer != fastPointer){
+            slowPointer = slowPointer.next;
+            fastPointer = fastPointer.next;
+        }
+        return slowPointer;
+    }
+}

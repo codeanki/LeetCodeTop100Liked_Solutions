@@ -1,0 +1,21 @@
+class Solution {
+    public void helper(int[] candidates, int remainingTarget, int start, List<Integer> currentCombinations, List<List<Integer>> answer){
+       if(remainingTarget == 0){
+           answer.add(new ArrayList<>(currentCombinations));
+           return;
+       }
+        for(int i = start; i < candidates.length; i++){
+            if(candidates[i] <= remainingTarget){
+                currentCombinations.add(candidates[i]);
+                helper(candidates, remainingTarget - candidates[i], i, currentCombinations, answer);
+                currentCombinations.remove(currentCombinations.size() - 1);
+            }
+        }
+    }
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        List<List<Integer>> answer = new ArrayList<>();
+        List<Integer> currentCombinations = new ArrayList<>();
+        helper(candidates,target,0,currentCombinations,answer);
+        return answer;
+    }
+}

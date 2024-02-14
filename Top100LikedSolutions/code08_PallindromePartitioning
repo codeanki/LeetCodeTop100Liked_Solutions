@@ -1,0 +1,33 @@
+class Solution {
+
+    public static boolean isPallindrome(String s, int left, int right){
+        while(left < right){
+            if(s.charAt(left) != s.charAt(right)){
+                return false;
+            }
+            left++;
+            right--;
+        }
+        return true;
+    }
+
+    public static void helper(String s, int start, List<String> currentPartition, List<List<String>> answer){
+        if(start == s.length()){
+            answer.add(new ArrayList<>(currentPartition));
+            return;
+        }
+        for(int i = start + 1; i <= s.length(); i++){
+           if(isPallindrome(s, start, i - 1)){
+               currentPartition.add(s.substring(start,i));
+               helper(s,i,currentPartition, answer);
+               currentPartition.remove(currentPartition.size() - 1);
+           }
+        }
+    }
+    public List<List<String>> partition(String s) {
+        List<String> currentPartition = new ArrayList<>();
+        List<List<String>> answer = new ArrayList<>();
+        helper(s, 0, currentPartition, answer);
+        return answer;
+    }
+}

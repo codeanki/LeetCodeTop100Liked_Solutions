@@ -1,0 +1,20 @@
+class Solution {
+
+    public TreeNode node = null;
+    public void reversePreorder(TreeNode root){
+        if(root.right != null){
+            reversePreorder(root.right);
+        }
+        if(root.left != null){
+            reversePreorder(root.left);
+        }
+        root.left = null;
+        root.right = node;
+        node = root;
+    }
+    public void flatten(TreeNode root) {
+        if(root != null){
+            reversePreorder(root);
+        }
+    }
+}
